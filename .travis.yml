@@ -5,6 +5,7 @@ env:
 branches:
   only:
     - master
+    - develop
 install:
   - sudo apt-get install luajit
   - sudo apt-get install luarocks
