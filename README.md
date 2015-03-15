@@ -4,6 +4,9 @@ FlashAir独自のLua関数を利用するためのライブラリ。
 
 このライブラリが提供するオブジェクト fa が FlashAir の fa の様に振る舞うため、FlashAir外でも開発が可能になる。
 
+* master: [![Build Status](https://travis-ci.org/xight/flashair-lua-dev.svg?branch=master)](https://travis-ci.org/xight/flashair-lua-dev)
+* develop: [![Build Status](https://travis-ci.org/xight/flashair-lua-dev.svg?branch=develop)](https://travis-ci.org/xight/flashair-lua-dev)
+
 # Usage
 
 ```lua
