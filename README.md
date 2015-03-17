@@ -31,3 +31,6 @@ local b, c, h = fa.request("http://example.com/")
 
 * [FlashAir Developers - Lua Reference](https://www.flashair-developers.com/ja/documents/api/lua/reference/)
 
+# License
+
+MIT: http://xight.mit-license.org
