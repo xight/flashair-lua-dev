@@ -40,6 +40,14 @@ describe("flashair", function()
 		assert.are.equals(md5_a, md5_KNOWN_a)
 	end)
 
+	it("check sleep", function()
+		local sleep_sec = 1
+		local t = os.time()
+		fa.sleep(sleep_sec * 1000)
+		local t2 = os.time()
+		assert.are.equals(t2 - t, sleep_sec)
+	end)
+
 	teardown(function()
 		os.remove(download_file1)
 		os.remove(download_file2)

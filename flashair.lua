@@ -97,6 +97,11 @@ FlashAir.new = function()
 	obj.Bridge = function()
 	end
 
+	obj.sleep = function(msec)
+		local sec = msec / 1000
+		os.execute("sleep ".. sec)
+	end
+
 	return obj
 end
 
