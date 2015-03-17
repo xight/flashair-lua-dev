@@ -100,7 +100,7 @@ FlashAir.new = function()
 	obj.Establish = function(ssid, networkkey, encmode)
 	end
 
-	obj.Bridge = function(ssid, networkkey, encmode brgssid, brgnetworkkey)
+	obj.Bridge = function(ssid, networkkey, encmode, brgssid, brgnetworkkey)
 	end
 
 	obj.sleep = function(msec)
