@@ -71,30 +71,36 @@ FlashAir.new = function()
 		return ret
 	end
 
-	obj.pio = function()
+	obj.pio = function(ctrl, data)
 	end
 
-	obj.FTP = function()
+	obj.FTP = function(cmd, uri, filename)
 	end
 
 	obj.md5 = function(str)
 		return require("crypto").digest("md5", str)
-
 	end
 
-	obj.Scan = function()
+	-- count = fa.Scan([ssid])
+	obj.Scan = function(...)
+		local count = 1
+		return count
 	end
 
-	obj.GetScanInfo = function()
+	-- ssid, other = fa.GetScanInfo(num)
+	obj.GetScanInfo = function(num)
+		local ssid = "DUMMY_SSID"
+		local other = {}
+		return ssid, other
 	end
 
-	obj.Connect = function()
+	obj.Connect = function(ssid, networkkey)
 	end
 
-	obj.Establish = function()
+	obj.Establish = function(ssid, networkkey, encmode)
 	end
 
-	obj.Bridge = function()
+	obj.Bridge = function(ssid, networkkey, encmode, brgssid, brgnetworkkey)
 	end
 
 	obj.sleep = function(msec)
