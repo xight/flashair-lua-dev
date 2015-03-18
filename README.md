@@ -23,6 +23,13 @@ local b, c, h = fa.request("http://example.com/")
 
 # ToDo
 
+* fa.request の引数対応
+	* method
+	* headers
+	* file
+	* body
+	* bufsize
+	* redirect
 * fa.pio の仕様確認と実装
 * fa.ReadStatusReg()の仕様確認と実装
 * fa.FTP の実装

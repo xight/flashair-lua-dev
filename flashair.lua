@@ -168,7 +168,6 @@ FlashAir.new = function()
 			for i = 1, 50 - string.len(ssid_hex) do
 				ssid_hex = ssid_hex .. "0"
 			end
-			print(ssid_hex)
 			return ssid_hex
 		end
 
