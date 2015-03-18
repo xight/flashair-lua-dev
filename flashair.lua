@@ -120,6 +120,25 @@ FlashAir.new = function()
 		os.execute("sleep ".. sec)
 	end
 
+	obj.ReadStatusReg = function()
+		--[[
+		161-168: ip address (192.168.2.250) (c0a802fa)
+		169-176: subnet mask (255.255.255.0) (ffffff)
+		177-184: default gateway (192.168.2.1) (c0a80201)
+		185-192: preferred DNS (192.168.2.1) (c0a80201)
+		193-200: alternate DNS (0.0.0.0) (00000000)
+		]]
+		--            1                                                             64 
+		local ret  = "000000000000a000ffffffffffffffffffffffff000000000000000000000000"
+		--            65                                                           128 
+		ret = ret .. "00000000000000000fffff0000000000fffffffffff000000000000000000000"
+		--            129                                                          192 
+		ret = ret .. "00000000000000000000000000000000c0a802faffffff00c0a80201c0a80201"
+		--            193                                          240
+		ret = ret .. "000000000000000000000000000000000000000000000000"
+		return ret
+	end
+
 	return obj
 end
 

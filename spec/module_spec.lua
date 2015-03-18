@@ -55,6 +55,22 @@ describe("flashair", function()
 		assert.are.equals(t2 - t, sleep_sec)
 	end)
 
+	it("check ReadStatusReg return value length", function()
+		local status_reg = fa.ReadStatusReg()
+		assert.are.equals(string.len(status_reg), 240)
+	end)
+
+	it("check ReadStatusReg ip address", function()
+		local ip = "192.168.2.250"
+		local ip_hex = string.sub(fa.ReadStatusReg(),161,168)
+		ip1 = tonumber(string.sub(ip_hex,1,2),16)
+		ip2 = tonumber(string.sub(ip_hex,3,4),16)
+		ip3 = tonumber(string.sub(ip_hex,5,6),16)
+		ip4 = tonumber(string.sub(ip_hex,7,8),16)
+		local ret_ip = ip1 .. "." .. ip2 .. "." .. ip3 .. "." .. ip4
+		assert.are.equals(ret_ip , ip)
+	end)
+
 	teardown(function()
 		os.remove(download_file1)
 		os.remove(download_file2)
