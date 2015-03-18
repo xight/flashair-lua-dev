@@ -58,7 +58,7 @@ FlashAir.new = function()
 			url = uri,
 		}
 
-		local ret = 0
+		local ret = nil
 		if c == 200 then
 			ret = 1
 

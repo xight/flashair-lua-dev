@@ -26,12 +26,12 @@ describe("flashair", function()
 
 	it("check HTTPGetFile (not exist file)", function()
 		local state = fa.HTTPGetFile("http://example.com/not-exist",download_file2)
-		assert.are.equals(state, 0)
+		assert.are.equals(state, nil)
 	end)
 
 	it("check HTTPGetFile (not exist domain)", function()
 		local state = fa.HTTPGetFile("http://not-exist.com/",download_file2)
-		assert.are.equals(state, 0)
+		assert.are.equals(state, nil)
 	end)
 
 	it("check md5", function()
