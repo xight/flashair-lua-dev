@@ -99,12 +99,16 @@ FlashAir.new = function()
 	end
 
 	obj.Connect = function(ssid, networkkey)
+		io.stderr:write("Connect: " .. ssid .. ", " .. networkkey .. "\n")
 	end
 
 	obj.Establish = function(ssid, networkkey, encmode)
+		io.stderr:write("Establish: " .. ssid .. ", " .. networkkey .. ", " ..encmode  .. "\n")
 	end
 
 	obj.Bridge = function(ssid, networkkey, encmode, brgssid, brgnetworkkey)
+		io.stderr:write("Bridge: " .. ssid .. ", " .. networkkey .. ", " ..encmode)
+		io.stderr:write(brgssid .. ", " .. brgnetworkkey .. "\n")
 	end
 
 	obj.sleep = function(msec)
