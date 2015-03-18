@@ -34,6 +34,13 @@ describe("flashair", function()
 		assert.are.equals(state, nil)
 	end)
 
+	it("check pio", function()
+		local ctrl = 1
+		local data = 1
+		fa.pio(ctrl, data)
+		assert.are.equals(1,1)
+	end)
+
 	it("check md5", function()
 		local md5_a = fa.md5("a")
 		local md5_KNOWN_a = "0cc175b9c0f1b6a831c399e269772661"

@@ -72,6 +72,10 @@ FlashAir.new = function()
 	end
 
 	obj.pio = function(ctrl, data)
+		-- ad hoc
+		local s = 1
+		local indata = 1
+		return s, indata
 	end
 
 	obj.FTP = function(cmd, uri, filename)
