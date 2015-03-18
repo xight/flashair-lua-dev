@@ -111,6 +111,10 @@ FlashAir.new = function()
 		io.stderr:write(brgssid .. ", " .. brgnetworkkey .. "\n")
 	end
 
+	obj.Disconnect = function()
+		io.stderr:write("Disconnect\n")
+	end
+
 	obj.sleep = function(msec)
 		local sec = msec / 1000
 		os.execute("sleep ".. sec)
