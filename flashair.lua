@@ -121,21 +121,49 @@ FlashAir.new = function()
 	end
 
 	obj.ReadStatusReg = function()
-		--[[
-		161-168: ip address (192.168.2.250) (c0a802fa)
-		169-176: subnet mask (255.255.255.0) (ffffff)
-		177-184: default gateway (192.168.2.1) (c0a80201)
-		185-192: preferred DNS (192.168.2.1) (c0a80201)
-		193-200: alternate DNS (0.0.0.0) (00000000)
-		]]
+		local ip_address      = "192.168.2.250" -- 161-168 (c0a802fa)
+		local subnet_mask     = "255.255.255.0" -- 169-176 (ffffffff)
+		local default_gateway = "192.168.2.1"   -- 177-184 (c0a80201)
+		local preferred_dns   = "192.168.2.1"   -- 185-192 (c0a80201)
+		local alternate_dns   = "0.0.0.0"       -- 193-200 (00000000)
+
+		-- hex generate
+		local split_it = function(str, sep)
+			if str == nil then return nil end
+			assert(type(str) == "string", "str must be a string")
+			assert(type(sep) == "string", "sep must be a string")
+			return string.gmatch(str, "[^\\" .. sep .. "]+")
+		end
+		local split = function(str, sep)
+			local ret = {}
+			for seg in split_it(str, sep) do
+				ret[#ret+1] = seg
+			end
+			return ret
+		end
+		local ip2hex = function(ip)
+			local ip_t = split(ip,".")
+			local ip_hex = ""
+			for i,v in ipairs(ip_t) do
+				ip_hex = ip_hex .. string.format("%02x",v)
+			end
+			return ip_hex
+		end
+
 		--            1                                                             64 
 		local ret  = "000000000000a000ffffffffffffffffffffffff000000000000000000000000"
 		--            65                                                           128 
 		ret = ret .. "00000000000000000fffff0000000000fffffffffff000000000000000000000"
-		--            129                                                          192 
-		ret = ret .. "00000000000000000000000000000000c0a802faffffff00c0a80201c0a80201"
-		--            193                                          240
-		ret = ret .. "000000000000000000000000000000000000000000000000"
+		--            129                          160
+		ret = ret .. "00000000000000000000000000000000"
+		-- 161-200         
+		ret = ret .. ip2hex(ip_address)
+		ret = ret .. ip2hex(subnet_mask)
+		ret = ret .. ip2hex(default_gateway)
+		ret = ret .. ip2hex(preferred_dns)
+		ret = ret .. ip2hex(alternate_dns)
+		--            201                                  240
+		ret = ret .. "0000000000000000000000000000000000000000"
 		return ret
 	end
 
