@@ -12,7 +12,7 @@ FlashAir独自のLua関数を利用するためのライブラリ。
 ```lua
 require("flashair")
 
-local b, c, h = fa.request("http://example.com/")
+local b, c, h = fa.request{url = "http://example.com/"}
 ```
 
 # Requirement
