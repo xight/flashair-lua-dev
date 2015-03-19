@@ -40,4 +40,6 @@ local b, c, h = fa.request("http://example.com/")
 
 # License
 
-MIT: http://xight.mit-license.org
+Copyright (c) 2015 Yoshiki Sato
+Released under the MIT license
+https://github.com/xight/flashair-lua-dev/LICENSE
