@@ -165,8 +165,8 @@ FlashAir.new = function()
 			for i = 1, string.len(ssid) do
 				ssid_hex = ssid_hex .. string.format("%02x",string.byte(ssid,i))
 			end
-			-- zero padding (size 50)
-			for i = 1, 50 - string.len(ssid_hex) do
+			-- zero padding (size 64)
+			for i = 1, 64 - string.len(ssid_hex) do
 				ssid_hex = ssid_hex .. "0"
 			end
 			return ssid_hex
@@ -174,10 +174,10 @@ FlashAir.new = function()
 
 		--            1-------------16
 		local ret  = "000000000000a000"
-		--            17-56 (50byte)
+		--            17-80 (64byte)
 		ret = ret .. ssid2hex(ssid)
-		--            57--------------------------96
-		ret = ret .. "0000000000000006640b0000000000"
+		--            81------------96
+		ret = ret .. "06640b0000000000"
 		--            97-108 (12byte)
 		ret = ret .. mac2hex(mac_address)
 		--            109----------------------------------------------160
