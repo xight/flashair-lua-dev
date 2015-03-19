@@ -5,17 +5,17 @@ describe("flashair", function()
 	local download_file2 = "__test_download2"
 
 	it("check request", function()
-		local b, c, h = fa.request("http://example.com/")
+		local b, c, h = fa.request{url = "http://example.com/"}
 		assert.are.equals(c, 200)
 	end)
 
 	it("check request (not found)", function()
-		local b, c, h = fa.request("http://example.com/not-exist")
+		local b, c, h = fa.request{url = "http://example.com/not-exist"}
 		assert.are.equals(c, 404)
 	end)
 
 	it("check request (not exist domain)", function()
-		local b, c, h = fa.request("http://not-exist.com/")
+		local b, c, h = fa.request{url = "http://not-exist.com/"}
 		assert.are.equals(c, 'host or service not provided, or not known')
 	end)
 
