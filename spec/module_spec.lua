@@ -1,8 +1,26 @@
 require("flashair")
 
 describe("flashair", function()
-	local download_file1 = "__test_download1"
-	local download_file2 = "__test_download2"
+	local config = {}
+	local lyaml
+	local download_file1,download_file2
+
+	setup(function()
+		download_file1 = "__test_download1"
+		download_file2 = "__test_download2"
+		lyaml = require("lyaml")
+		local fh, msg = io.open("config.yaml","r")
+
+		if fh then
+			local data = fh:read("*a")
+			config = lyaml.load(data)
+		end
+	end)
+
+	teardown(function()
+		os.remove(download_file1)
+		os.remove(download_file2)
+	end)
 
 	it("check request (srequest)", function()
 		local b, c, h = fa.request("http://example.com/")
@@ -76,7 +94,7 @@ describe("flashair", function()
 	end)
 
 	it("check ReadStatusReg ip address", function()
-		local ip = "192.168.2.250"
+		local ip = config.ip_address
 		local ip_hex = string.sub(fa.ReadStatusReg(),161,168)
 		ip1 = tonumber(string.sub(ip_hex,1,2),16)
 		ip2 = tonumber(string.sub(ip_hex,3,4),16)
@@ -86,8 +104,9 @@ describe("flashair", function()
 		assert.are.equals(ret_ip , ip)
 	end)
 
-	teardown(function()
-		os.remove(download_file1)
-		os.remove(download_file2)
+	it("check GetScanInfo", function()
+		local ssid = config.ssid
+		local ret_ssid, ret_other = fa.GetScanInfo(0)
+		assert.are.equals(ssid,ret_ssid)
 	end)
 end)
