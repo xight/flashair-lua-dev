@@ -7,7 +7,7 @@ branches:
     - master
     - develop
 install:
-  - sudo apt-get install apt-file
+    #  - sudo apt-get install apt-file
   - sudo apt-get install luarocks
   - sudo apt-get install libyaml-dev
   - sudo luarocks install luafilesystem
