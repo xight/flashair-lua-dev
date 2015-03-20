@@ -39,16 +39,17 @@ FlashAir.new = function()
 	obj.HTTPGetFile = function(uri, filepath, ...)
 		local param = {...}
 
-		local parsed_url = require("socket.url").parse(uri)
+		local socket_url = require("socket.url")
+		local parsed_url = socket_url.parse(uri)
 		local user = param[1] 
 		local pass = param[2] 
 
 		if (user ~= nil and pass ~= nil) then
-			local url = require("socket.url").parse(uri)
-			local parsed_url = require("socket.url").parse(uri)
+			local url = socket_url.parse(uri)
+			local parsed_url = socket_url.parse(uri)
 			parsed_url.user = user
 			parsed_url.password = pass
-			uri = require("socket.url").build(parsed_url)
+			uri = socket_url.build(parsed_url)
 		end
 
 		local http = require("socket.http")
