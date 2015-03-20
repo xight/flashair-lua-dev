@@ -1,13 +1,13 @@
 language: erlang
 env:
   - LUA=""
-  - LUA="luajit"
+#  - LUA="luajit"
 branches:
   only:
     - master
     - develop
 install:
-  - sudo apt-get install luajit
+#  - sudo apt-get install luajit
   - sudo apt-get install luarocks
   - sudo apt-get install libyaml-dev
   - apt-cache search libyaml
