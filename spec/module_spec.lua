@@ -1,21 +1,54 @@
 require("flashair")
 
 describe("flashair", function()
-	local download_file1 = "__test_download1"
-	local download_file2 = "__test_download2"
+	local config = {}
+	local lyaml
+	local download_file1,download_file2
 
-	it("check request", function()
+	setup(function()
+		download_file1 = "__test_download1"
+		download_file2 = "__test_download2"
+		lyaml = require("lyaml")
+		local fh, msg = io.open("config.yaml","r")
+
+		if fh then
+			local data = fh:read("*a")
+			config = lyaml.load(data)
+		end
+	end)
+
+	teardown(function()
+		os.remove(download_file1)
+		os.remove(download_file2)
+	end)
+
+	it("check request (srequest)", function()
 		local b, c, h = fa.request("http://example.com/")
 		assert.are.equals(c, 200)
 	end)
 
-	it("check request (not found)", function()
+	it("check request (srequest / not found)", function()
 		local b, c, h = fa.request("http://example.com/not-exist")
 		assert.are.equals(c, 404)
 	end)
 
-	it("check request (not exist domain)", function()
+	it("check request (srequest / not exist domain)", function()
 		local b, c, h = fa.request("http://not-exist.com/")
+		assert.are.equals(c, 'host or service not provided, or not known')
+	end)
+
+	it("check request (trequest)", function()
+		local b, c, h = fa.request{url = "http://example.com/"}
+		assert.are.equals(c, 200)
+	end)
+
+	it("check request (trequest / not found)", function()
+		local b, c, h = fa.request{url = "http://example.com/not-exist"}
+		assert.are.equals(c, 404)
+	end)
+
+	it("check request (trequest / not exist domain)", function()
+		local b, c, h = fa.request{url = "http://not-exist.com/"}
 		assert.are.equals(c, 'host or service not provided, or not known')
 	end)
 
@@ -26,12 +59,19 @@ describe("flashair", function()
 
 	it("check HTTPGetFile (not exist file)", function()
 		local state = fa.HTTPGetFile("http://example.com/not-exist",download_file2)
-		assert.are.equals(state, 0)
+		assert.are.equals(state, nil)
 	end)
 
 	it("check HTTPGetFile (not exist domain)", function()
 		local state = fa.HTTPGetFile("http://not-exist.com/",download_file2)
-		assert.are.equals(state, 0)
+		assert.are.equals(state, nil)
+	end)
+
+	it("check pio", function()
+		local ctrl = 1
+		local data = 1
+		fa.pio(ctrl, data)
+		assert.are.equals(1,1)
 	end)
 
 	it("check md5", function()
@@ -48,8 +88,25 @@ describe("flashair", function()
 		assert.are.equals(t2 - t, sleep_sec)
 	end)
 
-	teardown(function()
-		os.remove(download_file1)
-		os.remove(download_file2)
+	it("check ReadStatusReg return value length", function()
+		local status_reg = fa.ReadStatusReg()
+		assert.are.equals(string.len(status_reg), 240)
+	end)
+
+	it("check ReadStatusReg ip address", function()
+		local ip = config.ip_address
+		local ip_hex = string.sub(fa.ReadStatusReg(),161,168)
+		ip1 = tonumber(string.sub(ip_hex,1,2),16)
+		ip2 = tonumber(string.sub(ip_hex,3,4),16)
+		ip3 = tonumber(string.sub(ip_hex,5,6),16)
+		ip4 = tonumber(string.sub(ip_hex,7,8),16)
+		local ret_ip = ip1 .. "." .. ip2 .. "." .. ip3 .. "." .. ip4
+		assert.are.equals(ret_ip , ip)
+	end)
+
+	it("check GetScanInfo", function()
+		local ssid = config.ssid
+		local ret_ssid, ret_other = fa.GetScanInfo(0)
+		assert.are.equals(ssid,ret_ssid)
 	end)
 end)

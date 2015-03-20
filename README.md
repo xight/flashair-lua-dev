@@ -13,13 +13,18 @@ FlashAir独自のLua関数を利用するためのライブラリ。
 require("flashair")
 
 local b, c, h = fa.request("http://example.com/")
+print(b)
+
+local b, c, h = fa.request{url = "http://example.com/"}
+print(b)
 ```
 
 # Requirement
 
 * [luasocket](https://github.com/diegonehab/luasocket)
-* [luacrypto](https://github.com/mkottman/luacrypto/)
-* [busted](http://olivinelabs.com/busted/) for unit testing
+* [luacrypto](https://github.com/mkottman/luacrypto)
+* [lyaml](https://github.com/gvvaughan/lyaml)
+* [busted](http://olivinelabs.com/busted) for unit testing
 
 # ToDo
 
@@ -33,4 +38,6 @@ local b, c, h = fa.request("http://example.com/")
 
 # License
 
-MIT: http://xight.mit-license.org
+Copyright (c) 2015 Yoshiki Sato
+Released under the MIT license
+https://github.com/xight/flashair-lua-dev/LICENSE
