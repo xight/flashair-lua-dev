@@ -10,7 +10,9 @@ install:
 #  - sudo apt-get install luajit
   - sudo apt-get install luarocks
   - sudo apt-get install libyaml-dev
+  - sudo apt-get install libyaml-0-2
   - apt-cache search libyaml
+  - dpkg -l
   - sudo luarocks install luafilesystem
   - sudo luarocks install busted
   - sudo luarocks install luasocket
