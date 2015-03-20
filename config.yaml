@@ -1,0 +1,7 @@
+ssid: "SSID"
+mac_address: "12:34:56:AB:CD:EF"
+ip_address: "192.168.2.250"
+subnet_mask: "255.255.255.0"
+default_gateway: "192.168.2.1"
+preferred_dns: "192.168.2.1"
+alternate_dns: "0.0.0.0"

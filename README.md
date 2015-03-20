@@ -18,18 +18,12 @@ local b, c, h = fa.request{url = "http://example.com/"}
 # Requirement
 
 * [luasocket](https://github.com/diegonehab/luasocket)
-* [luacrypto](https://github.com/mkottman/luacrypto/)
-* [busted](http://olivinelabs.com/busted/) for unit testing
+* [luacrypto](https://github.com/mkottman/luacrypto)
+* [lyaml](https://github.com/gvvaughan/lyaml)
+* [busted](http://olivinelabs.com/busted) for unit testing
 
 # ToDo
 
-* fa.request の引数対応
-	* method
-	* headers
-	* file
-	* body
-	* bufsize
-	* redirect
 * fa.pio の仕様確認と実装
 * fa.ReadStatusReg()の仕様確認と実装
 * fa.FTP の実装

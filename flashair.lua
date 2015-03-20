@@ -5,10 +5,55 @@ http://github.com/xight/flashair-lua-dev
 
 FlashAir = {}
 FlashAir.new = function()
+	local socket = require("socket")
 	local obj = {}
+	local base = _G
+
+	local lyaml = require("lyaml")
+	local fh, msg = io.open("config.yaml","r")
+
+	if fh then
+		local data = fh:read("*a")
+		obj.config = lyaml.load(data)
+	end
 
 	-- b, c, h = fa.request(url [, method [, headers [, file [, body [, bufsize [, redirect]]]]]])
-	obj.request = function(...)
+	local srequest = function(url, ...)
+		local param = ...
+		local method   = nil
+		local headers  = nil
+		local file     = nil
+		local body     = nil
+		local bufsize  = nil
+		local redirect = nil
+		if param ~= nil then
+			method   = param[1]
+			headers  = param[2]
+			file     = param[3]
+			body     = param[4]
+			bufsize  = param[5]
+			redirect = param[6]
+		end
+
+		local http = require("socket.http")
+		local ltn12 = require("ltn12")
+
+		local body = {}
+		local b, c, h = http.request {
+			url = url,
+			sink = ltn12.sink.table(body),
+			method = method,
+			headers = headers,
+			source = nil, 
+			step = nil,
+			proxy = nil, 
+			redirect = redirect,
+			create = nil,
+		}
+		return table.concat(body), c, h
+	end
+
+	local trequest = function(...)
 		local param = ...
 		local url      = param["url"]
 		local method   = param["method"]
@@ -36,6 +81,11 @@ FlashAir.new = function()
 		return table.concat(body), c, h
 	end
 
+	obj.request = socket.protect(function(reqt, body)
+		if base.type(reqt) == "string" then return srequest(reqt, body)
+		else return trequest(reqt) end
+	end)
+
 	obj.HTTPGetFile = function(uri, filepath, ...)
 		local param = {...}
 
@@ -56,7 +106,7 @@ FlashAir.new = function()
 		local ltn12 = require("ltn12")
 
 		-- get HTTP status code
-		local b, c, h =  http.request {
+		local b, c, h = http.request {
 			url = uri,
 		}
 
@@ -64,7 +114,7 @@ FlashAir.new = function()
 		if c == 200 then
 			ret = 1
 
-			local b, c, h =  http.request {
+			local b, c, h = http.request {
 				url = uri,
 				sink = ltn12.sink.file(io.open(filepath,"w")),
 			}
@@ -95,7 +145,7 @@ FlashAir.new = function()
 
 	-- ssid, other = fa.GetScanInfo(num)
 	obj.GetScanInfo = function(num)
-		local ssid = "DUMMY_SSID"
+		local ssid = obj.config.ssid
 		local other = {}
 		return ssid, other
 	end
@@ -123,14 +173,15 @@ FlashAir.new = function()
 	end
 
 	obj.ReadStatusReg = function()
-		local ssid            = "SSID"              -- 17-56  (535349440000...00)
-		local mac_address     = "12:34:56:AB:CD:EF" -- 97-108 (123456ABCDEF)
-		local ip_address      = "192.168.2.250"     -- 161-168 (c0a802fa)
-		local subnet_mask     = "255.255.255.0"     -- 169-176 (ffffffff)
-		local default_gateway = "192.168.2.1"       -- 177-184 (c0a80201)
-		local preferred_dns   = "192.168.2.1"       -- 185-192 (c0a80201)
-		local alternate_dns   = "0.0.0.0"           -- 193-200 (00000000)
-
+		--[[
+		ssid            -- 17-56  (535349440000...00)
+		mac_address     -- 97-108 (123456ABCDEF)
+		ip_address      -- 161-168 (c0a802fa)
+		subnet_mask     -- 169-176 (ffffffff)
+		default_gateway -- 177-184 (c0a80201)
+		preferred_dns   -- 185-192 (c0a80201)
+		alternate_dns   -- 193-200 (00000000)
+		]]
 		-- split
 		local split_it = function(str, sep)
 			if str == nil then return nil end
@@ -176,19 +227,19 @@ FlashAir.new = function()
 		--            1-------------16
 		local ret  = "000000000000a000"
 		--            17-80 (64byte)
-		ret = ret .. ssid2hex(ssid)
+		ret = ret .. ssid2hex(obj.config.ssid)
 		--            81------------96
 		ret = ret .. "06640b0000000000"
 		--            97-108 (12byte)
-		ret = ret .. mac2hex(mac_address)
+		ret = ret .. mac2hex(obj.config.mac_address)
 		--            109----------------------------------------------160
 		ret = ret .. "0000000000000000000000000000000000000000000000000000"
 		--            161-200
-		ret = ret .. ip2hex(ip_address)
-		ret = ret .. ip2hex(subnet_mask)
-		ret = ret .. ip2hex(default_gateway)
-		ret = ret .. ip2hex(preferred_dns)
-		ret = ret .. ip2hex(alternate_dns)
+		ret = ret .. ip2hex(obj.config.ip_address)
+		ret = ret .. ip2hex(obj.config.subnet_mask)
+		ret = ret .. ip2hex(obj.config.default_gateway)
+		ret = ret .. ip2hex(obj.config.preferred_dns)
+		ret = ret .. ip2hex(obj.config.alternate_dns)
 		--            201----------------------------------240
 		ret = ret .. "0000000000000000000000000000000000000000"
 		return ret
