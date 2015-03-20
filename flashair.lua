@@ -5,10 +5,47 @@ http://github.com/xight/flashair-lua-dev
 
 FlashAir = {}
 FlashAir.new = function()
+	local socket = require("socket")
 	local obj = {}
+	local base = _G
 
 	-- b, c, h = fa.request(url [, method [, headers [, file [, body [, bufsize [, redirect]]]]]])
-	obj.request = function(...)
+	local srequest = function(url, ...)
+		local param = ...
+		local method   = nil
+		local headers  = nil
+		local file     = nil
+		local body     = nil
+		local bufsize  = nil
+		local redirect = nil
+		if param ~= nil then
+			method   = param[1]
+			headers  = param[2]
+			file     = param[3]
+			body     = param[4]
+			bufsize  = param[5]
+			redirect = param[6]
+		end
+
+		local http = require("socket.http")
+		local ltn12 = require("ltn12")
+
+		local body = {}
+		local b, c, h = http.request {
+			url = url,
+			sink = ltn12.sink.table(body),
+			method = method,
+			headers = headers,
+			source = nil, 
+			step = nil,
+			proxy = nil, 
+			redirect = redirect,
+			create = nil,
+		}
+		return table.concat(body), c, h
+	end
+
+	local trequest = function(...)
 		local param = ...
 		local url      = param["url"]
 		local method   = param["method"]
@@ -36,6 +73,11 @@ FlashAir.new = function()
 		return table.concat(body), c, h
 	end
 
+	obj.request = socket.protect(function(reqt, body)
+		if base.type(reqt) == "string" then return srequest(reqt, body)
+		else return trequest(reqt) end
+	end)
+
 	obj.HTTPGetFile = function(uri, filepath, ...)
 		local param = {...}
 
@@ -56,7 +98,7 @@ FlashAir.new = function()
 		local ltn12 = require("ltn12")
 
 		-- get HTTP status code
-		local b, c, h =  http.request {
+		local b, c, h = http.request {
 			url = uri,
 		}
 
@@ -64,7 +106,7 @@ FlashAir.new = function()
 		if c == 200 then
 			ret = 1
 
-			local b, c, h =  http.request {
+			local b, c, h = http.request {
 				url = uri,
 				sink = ltn12.sink.file(io.open(filepath,"w")),
 			}
