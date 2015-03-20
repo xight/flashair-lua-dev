@@ -9,10 +9,12 @@ branches:
 install:
   - sudo apt-get install luajit
   - sudo apt-get install luarocks
+  - sudo apt-get install libyaml-dev
   - sudo luarocks install luafilesystem
   - sudo luarocks install busted
   - sudo luarocks install luasocket
   - sudo luarocks install luacrypto
+  - sudo luarocks install lyaml
 script: "busted spec"
 
 #notifications:
