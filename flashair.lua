@@ -174,7 +174,7 @@ FlashAir.new = function()
 
 	obj.ReadStatusReg = function()
 		--[[
-		ssid            -- 17-56  (535349440000...00)
+		ssid            -- 17-80  (535349440000...00)
 		mac_address     -- 97-108 (123456ABCDEF)
 		ip_address      -- 161-168 (c0a802fa)
 		subnet_mask     -- 169-176 (ffffffff)
