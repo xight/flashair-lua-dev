@@ -1,7 +1,6 @@
 # flashair-lua-dev
 
-FlashAir独自のLua関数を利用するためのライブラリ。
-
+FlashAir独自のLua関数を利用するためのライブラリ。  
 このライブラリが提供するオブジェクト fa が FlashAir の fa の様に振る舞うため、FlashAir外でも開発が可能になる。
 
 * master: [![Build Status](https://travis-ci.org/xight/flashair-lua-dev.svg?branch=master)](https://travis-ci.org/xight/flashair-lua-dev)
@@ -38,6 +37,6 @@ print(b)
 
 # License
 
-Copyright (c) 2015 Yoshiki Sato
-Released under the MIT license
-https://github.com/xight/flashair-lua-dev/LICENSE
+Copyright (c) 2015 Yoshiki Sato  
+Released under the MIT license  
+https://github.com/xight/flashair-lua-dev/blob/master/LICENSE
