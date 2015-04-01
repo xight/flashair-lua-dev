@@ -23,7 +23,7 @@ print(b)
 * [luasocket](https://github.com/diegonehab/luasocket)
 * [luacrypto](https://github.com/mkottman/luacrypto)
 * [lyaml](https://github.com/gvvaughan/lyaml)
-* [busted](http://olivinelabs.com/busted) for unit testing
+* [busted](https://github.com/Olivine-Labs/busted) for unit testing
 
 # ToDo
 
