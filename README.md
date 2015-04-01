@@ -6,6 +6,31 @@ FlashAir独自のLua関数を利用するためのライブラリ。
 * master: [![Build Status](https://travis-ci.org/xight/flashair-lua-dev.svg?branch=master)](https://travis-ci.org/xight/flashair-lua-dev)
 * develop: [![Build Status](https://travis-ci.org/xight/flashair-lua-dev.svg?branch=develop)](https://travis-ci.org/xight/flashair-lua-dev)
 
+# Install
+
+## Install lua library
+
+'''
+% luarocks install luasocket
+% luarocks install luacrypto
+% luarocks install lyaml
+% luarocks install busted
+'''
+
+## git clone & testing
+
+'''
+% git clone https://github.com/xight/flashair-lua-dev
+% cd flashair-lua-dev
+% busted spec
+'''
+
+## Run sample script
+
+'''
+% lua sample.lua
+'''
+
 # Usage
 
 ```lua
