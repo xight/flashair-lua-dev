@@ -53,6 +53,7 @@ print(b)
 # Reference
 
 * [FlashAir Developers - Lua Reference](https://www.flashair-developers.com/ja/documents/api/lua/reference/)
+* [SlideShare - xightorg - 2015-03-21 FlashAir 進捗報告会](http://www.slideshare.net/xightorg/2015-0321-flashair)
 
 # License
 
