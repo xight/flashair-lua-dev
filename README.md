@@ -10,26 +10,20 @@ FlashAir独自のLua関数を利用するためのライブラリ。
 
 ## Install lua library
 
-'''
-% luarocks install luasocket
-% luarocks install luacrypto
-% luarocks install lyaml
-% luarocks install busted
-'''
+    % luarocks install luasocket
+    % luarocks install luacrypto
+    % luarocks install lyaml
+    % luarocks install busted
 
 ## git clone & testing
 
-'''
-% git clone https://github.com/xight/flashair-lua-dev
-% cd flashair-lua-dev
-% busted spec
-'''
+    % git clone https://github.com/xight/flashair-lua-dev
+    % cd flashair-lua-dev
+    % busted spec
 
 ## Run sample script
 
-'''
-% lua sample.lua
-'''
+    % lua sample.lua
 
 # Usage
 
