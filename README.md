@@ -11,22 +11,22 @@ FlashAir独自のLua関数を利用するためのライブラリ。
 ## Install lua library
 
     % luarocks install luasocket
-    % luarocks install luacrypto
+    % luarocks install luaossl
     % luarocks install lyaml
     % luarocks install busted
 
 ## git clone & testing
-
+ossl
     % git clone https://github.com/xight/flashair-lua-dev
     % cd flashair-lua-dev
     % busted spec
 
 ## Run sample script
-
+ossl
     % lua sample.lua
 
 # Usage
-
+ossl
 ```lua
 require("flashair")
 
@@ -40,7 +40,8 @@ print(b)
 # Requirement
 
 * [luasocket](https://github.com/diegonehab/luasocket)
-* [luacrypto](https://github.com/mkottman/luacrypto)
+* ~~[luacrypto](https://github.com/mkottman/luacrypto)~~ (deprecated)
+* [luaossl](http://25thandclement.com/~william/projects/luaossl.html)
 * [lyaml](https://github.com/gvvaughan/lyaml)
 * [busted](https://github.com/Olivine-Labs/busted) for unit testing
 
@@ -57,6 +58,6 @@ print(b)
 
 # License
 
-Copyright (c) 2015 Yoshiki Sato  
+Copyright (c) 2017 Yoshiki Sato  
 Released under the MIT license  
 https://github.com/xight/flashair-lua-dev/blob/master/LICENSE
