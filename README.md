@@ -57,6 +57,6 @@ print(b)
 
 # License
 
-Copyright (c) 2015 Yoshiki Sato  
+Copyright (c) 2017 Yoshiki Sato  
 Released under the MIT license  
 https://github.com/xight/flashair-lua-dev/blob/master/LICENSE

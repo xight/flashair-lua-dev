@@ -80,6 +80,30 @@ describe("flashair", function()
 		assert.are.equals(md5_a, md5_KNOWN_a)
 	end)
 
+	it("check hash (md5)", function()
+		local md5_a = fa.hash("md5","flashair")
+		local md5_KNOWN_a = "ee626b402376f878d0de4a7a81df7675"
+		assert.are.equals(md5_a, md5_KNOWN_a)
+	end)
+
+	it("check hash (sha1)", function()
+		local md5_a = fa.hash("sha1","flashair")
+		local md5_KNOWN_a = "c7b0cbd0e25e56f5e15e3aba767e816ff025b26c"
+		assert.are.equals(md5_a, md5_KNOWN_a)
+	end)
+
+	it("check hash (sha256)", function()
+		local md5_a = fa.hash("sha256","flashair")
+		local md5_KNOWN_a = "6594b08c58521f2ff8dd9f608fe355b5e24067b38556216486a13939070ffb86"
+		assert.are.equals(md5_a, md5_KNOWN_a)
+	end)
+
+	it("check hash (hmac-sha256)", function()
+		local md5_a = fa.hash("hmac-sha256","flashair","secret")
+		local md5_KNOWN_a = "0d201feddd40baa509230859e1b85ed173170d099c2e6c3babad2b6efc6aa400"
+		assert.are.equals(md5_a, md5_KNOWN_a)
+	end)
+
 	it("check sleep", function()
 		local sleep_sec = 1
 		local t = os.time()

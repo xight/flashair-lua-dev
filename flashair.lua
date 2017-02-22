@@ -133,8 +133,26 @@ FlashAir.new = function()
 	obj.FTP = function(cmd, uri, filename)
 	end
 
+	-- md5 = fa.md5(str)
+	-- obsolete (< 3.0.0)
 	obj.md5 = function(str)
 		return require("crypto").digest("md5", str)
+	end
+
+	-- hash = fa.hash(name, data, key)
+	obj.hash = function(name, data, key)
+		local crypto = require("crypto")
+		ret = nil
+		if (name == "md5") then
+			ret = crypto.digest("md5", data)
+		elseif (name == "sha1") then
+			ret = crypto.digest("sha1",data)
+		elseif (name == "sha256") then
+			ret = crypto.digest("sha256",data)
+		elseif (name == "hmac-sha256") then
+			ret = crypto.hmac.digest("sha256",data, key)
+		end
+		return ret
 	end
 
 	-- count = fa.Scan([ssid])
