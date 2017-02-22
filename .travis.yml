@@ -13,7 +13,7 @@ install:
   - sudo luarocks install luafilesystem
   - sudo luarocks install busted
   - sudo luarocks install luasocket
-  - sudo luarocks install luacrypto
+  - sudo luarocks install luaossl
   - sudo luarocks install lyaml YAML_LIBDIR=/usr/lib/x86_64-linux-gnu
 script: "busted spec"
 
