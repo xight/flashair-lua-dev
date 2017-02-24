@@ -112,6 +112,45 @@ describe("flashair", function()
 		assert.are.equals(t2 - t, sleep_sec)
 	end)
 
+	-- fa.sharedmemory(command, addr, len, wdata)
+	-- https://flashair-developers.com/ja/documents/api/lua/reference/#sharedmemory
+	it("check sharedmemory (write)", function()
+		local ret = fa.sharedmemory("write", 0, 8, "flashair")
+		assert.are.equals(ret, 1)
+	end)
+
+	it("check sharedmemory (read)", function()
+		local ret = fa.sharedmemory("read", 0, 8, 0)
+		assert.are.equals(ret, "flashair")
+	end)
+
+	it("check sharedmemory (write 2)", function()
+		local ret = fa.sharedmemory("write", 1, 8, "flashair")
+		assert.are.equals(ret, 1)
+	end)
+
+	it("check sharedmemory (read 2)", function()
+		local ret = fa.sharedmemory("read", 0, 9, 0)
+		assert.are.equals(ret, "fflashair")
+	end)
+
+	--[[
+	it("check sharedmemory (write fail : addr < 0)", function()
+		local ret = fa.sharedmemory("write", -1, 8, "flashair")
+		assert.are.equals(ret, nil)
+	end)
+
+	it("check sharedmemory (write fail : addr > 511)", function()
+		local ret = fa.sharedmemory("write", 0, 8, "flashair")
+		assert.are.equals(ret, nil)
+	end)
+
+	it("check sharedmemory (write fail : len < length(wdata))", function()
+		local ret = fa.sharedmemory("write", 0, 8, "flashair")
+		assert.are.equals(ret, nil)
+	end)
+	]]
+
 	it("check ReadStatusReg return value length", function()
 		local status_reg = fa.ReadStatusReg()
 		assert.are.equals(string.len(status_reg), 240)
