@@ -259,6 +259,40 @@ FlashAir.new = function()
 		return ret
 	end
 
+	-- fa.SetCert(filename)
+	-- not implement
+	obj.SetCert = function(filename)
+		return 1
+	end
+
+	-- fa.strconvert(format, orgstr)
+	-- not implement
+	obj.strconvert = function(format, orgstr)
+		assert(format == "sjis2utf8" or format == "utf82sjis", "format must be a \"sjis2utf8\" or \"utf82sjis\"")
+		return nil
+	end
+
+	-- fa.SetChannel(channelNo)
+	-- not implement
+	obj.SetChannel = function(channelNo)
+		assert(type(channelNo) == "number", "channelNo must be a number")
+	end
+
+	-- fa.MailSend(from,headers,body,server,user,password, attachment, ContentType)
+	-- not implement
+	obj.MailSend= function(from,headers,body,server,user,password, attachment, ContentType)
+		local success_message = "MailSend is success."
+		local failure_message = "Error: It filed to send."
+		return success_message
+	end
+
+	-- fa.spi(command, data)
+	-- not implement
+	obj.spi = function(command, data)
+		assert(command == "init" or command == "mode" or command == "bit" or command == "write" or command == "read" or command == "cs", "command must be a \"init\", \"mode\", \"bit\", \"write\", \"read\" or \"cs\"")
+		return 1
+	end
+
 	obj.ReadStatusReg = function()
 		--[[
 		ssid            -- 17-80  (535349440000...00)
@@ -346,6 +380,24 @@ FlashAir.new = function()
 		end
 
 		return obj._network.ip_address, obj._network.subnet_mask, obj._network.default_gateway
+	end
+
+	-- result = fa.WlanLink()
+	-- not implement
+	obj.WlanLink = function()
+		local connected = 1
+		local disconnect = 0
+		return connected
+	end
+
+	-- fa.remove(filename)
+	-- not implement
+	obj.remove = function(filename)
+	end
+
+	-- fa.rename(oldfile, newfile)
+	-- not implement
+	obj.rename= function(oldfile, newfile)
 	end
 
 	return obj
