@@ -167,6 +167,32 @@ describe("flashair", function()
 		assert.are.equals(ret_ip , ip)
 	end)
 
+	it("check ip (get)", function()
+		local obj = {}
+		local lyaml = require("lyaml")
+		local fh, msg = io.open("config.yaml","r")
+		if fh then
+			local data = fh:read("*a")
+			obj.config = lyaml.load(data)
+		end
+
+		local ip, mask, gw = fa.ip()
+		assert.are.equals(ip,   obj.config.ip_address)
+		assert.are.equals(mask, obj.config.subnet_mask)
+		assert.are.equals(gw,   obj.config.default_gateway)
+	end)
+
+	it("check ip (set)", function()
+		local test_ip   = "192.168.11.2"
+		local test_mask = "255.255.255.0"
+		local test_gw   = "192.168.11.1"
+		fa.ip(test_ip, test_mask, test_gw)
+		local ip, mask, gw = fa.ip()
+		assert.are.equals(ip,   test_ip)
+		assert.are.equals(mask, test_mask)
+		assert.are.equals(gw,   test_gw)
+	end)
+
 	it("check GetScanInfo", function()
 		local ssid = config.ssid
 		local ret_ssid, ret_other = fa.GetScanInfo(0)

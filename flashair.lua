@@ -12,9 +12,20 @@ FlashAir.new = function()
 	local lyaml = require("lyaml")
 	local fh, msg = io.open("config.yaml","r")
 
+	obj._network = {}
 	if fh then
 		local data = fh:read("*a")
 		obj.config = lyaml.load(data)
+
+		if obj.config.ip_address ~= nil then
+			obj._network.ip_address = obj.config.ip_address
+		end
+		if obj.config.subnet_mask ~= nil then
+			obj._network.subnet_mask = obj.config.subnet_mask
+		end
+		if obj.config.default_gateway ~= nil then
+			obj._network.default_gateway = obj.config.default_gateway
+		end
 	end
 
 	-- b, c, h = fa.request(url [, method [, headers [, file [, body [, bufsize [, redirect]]]]]])
@@ -319,6 +330,22 @@ FlashAir.new = function()
 		--            201----------------------------------240
 		ret = ret .. "0000000000000000000000000000000000000000"
 		return ret
+	end
+
+	-- ip, mask, gw = fa.ip(ipaddress, subnetmask, gateway)
+	obj.ip = function(ipaddress, subnetmask, gateway)
+		if ipaddress ~= nil then
+			obj._network.ip_address = ipaddress
+		end
+		if subnetmask ~= nil then
+			obj._network.subnet_mask = subnetmask
+		end
+
+		if gateway ~= nil then
+			obj._network.default_gateway = gateway
+		end
+
+		return obj._network.ip_address, obj._network.subnet_mask, obj._network.default_gateway
 	end
 
 	return obj
