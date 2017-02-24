@@ -212,6 +212,42 @@ FlashAir.new = function()
 		os.execute("sleep ".. sec)
 	end
 
+	-- fa.sharedmemory(command, addr, len, wdata)
+	obj._sharedmemory = {}
+
+	obj.sharedmemory = function(command, addr, len, wdata)
+		assert(command == "read" or command == "write", "command must be a \"write\" or \"read\"")
+		assert(type(addr) == "number", "addr must be a number")
+		assert(type(len) == "number", "len must be a number")
+
+		ret = nil
+
+
+		if command == "write" then
+			wdata_t = {}
+			wdata:gsub(".",function(c) table.insert(wdata_t,c) end)
+
+			j = 1
+			for i = addr + 1, addr + len  do
+				-- print(i, j, wdata_t[j])
+				obj._sharedmemory[i] = wdata_t[j]
+				j = j + 1
+			end
+			ret = 1
+
+		elseif command == "read" then
+			ret = ""
+			for i = addr + 1, addr + len do
+				-- print(i, obj._sharedmemory[i])
+				if obj._sharedmemory[i] == nil then
+					obj._sharedmemory[i] = " "
+				end
+				ret = ret .. obj._sharedmemory[i]
+			end
+		end
+		return ret
+	end
+
 	obj.ReadStatusReg = function()
 		--[[
 		ssid            -- 17-80  (535349440000...00)
