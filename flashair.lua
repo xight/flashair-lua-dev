@@ -141,6 +141,7 @@ FlashAir.new = function()
 		return s, indata
 	end
 
+	-- not implement
 	obj.FTP = function(cmd, uri, filename)
 	end
 
@@ -399,6 +400,34 @@ FlashAir.new = function()
 	-- fa.rename(oldfile, newfile)
 	-- not implement
 	obj.rename= function(oldfile, newfile)
+	end
+
+	-- res, data1, data2, data3, ... = fa.i2c(table)
+	-- not implement
+	obj.i2c = function(table)
+	end
+	
+	-- result, filelist, time = fa.search(type, path, searchtime)
+	-- not implement
+	obj.search = function(type, path, searchtime)
+	end
+
+	-- result = fa.control("time"[, savetime])
+	-- result = fa.control("time"[, savetime])
+	-- result = fa.control("fioget")
+	-- result = fa.control("fioset", enable)
+	-- not implement
+	obj.control= function(arg, val)
+	end
+
+	-- cnt,tbl = fa.ConnectedSTA()
+	-- not implement
+	obj.ConnectedSTA = function()
+	end
+	
+	-- res, type, payload = fa.websocket(table)
+	-- not implement
+	obj.websocket = function(table)
 	end
 
 	return obj
