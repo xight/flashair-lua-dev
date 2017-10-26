@@ -1,27 +1,49 @@
-language: erlang
-env:
-  - LUA=""
-#  - LUA="luajit"
-branches:
-  only:
-    - master
-    - develop
-install:
-  #  - sudo apt-get install apt-file
-  - sudo apt-get install luarocks
-  - sudo apt-get install libyaml-dev
-  - sudo luarocks install luafilesystem
-  - sudo luarocks install busted
-  - sudo luarocks install luasocket
-  - sudo luarocks install luaossl
-  - sudo luarocks install lyaml YAML_LIBDIR=/usr/lib/x86_64-linux-gnu
-script: "busted spec"
+language: python
 
-#notifications:
-#  webhooks:
-#    - http://my-url/travis-results
-#  recipients:
-#    - engineering@company.com
-#  email:
-#    on_success: change
-#    on_failure: always
+sudo: false
+
+env:
+  matrix:
+    #- LUA="lua 5.1" SOCKET=true
+    #- LUA="lua 5.1"
+    - LUA="lua 5.2" SOCKET=true
+    #- LUA="lua 5.2"
+    #- LUA="lua 5.3" SOCKET=true
+    #- LUA="lua 5.3"
+    #- LUA="luajit 2.0"
+    #- LUA="luajit 2.1" SOCKET=true SYSCALL=true
+    #- LUA="luajit 2.1" SYSCALL=true
+    #- LUA="luajit 2.1"
+    #- LUA="luajit @"
+
+before_install:
+  - pip install hererocks
+  - hererocks here -r^ --$LUA # Install latest LuaRocks version
+                              # plus the Lua version for this build job
+                              # into 'here' subdirectory
+  - export PATH=$PATH:$PWD/here/bin # Add directory with all installed binaries to PATH
+  - eval `luarocks path --bin`
+  - luarocks install luacov-coveralls
+  - luarocks install busted
+  - luarocks install luafilesystem
+  - luarocks install luasocket
+  - luarocks install luaossl
+  - luarocks install lyaml YAML_LIBDIR=/usr/lib/x86_64-linux-gnu
+
+install:
+  #- luarocks make
+  - if [ "$SOCKET" = "true" ]; then luarocks install luasocket; fi
+  - if [ "$SYSCALL" = "true" ]; then luarocks install ljsyscall; fi
+
+script:
+  - busted -c spec
+
+after_success:
+  - luacov-coveralls -v
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+  slack:
+    secure: T4b0kjRp3Qa0DuXUsMGxxN1g3rNFhzwFdPZb0r8nhSPaIg/2s26vrD5mD8TzEdNW6lBCwy48ruvMEfB1cv7Wcz7LC8O6UGiLF3wEUALd1G+oBDBKWNRSIbnLnANTJDgXsZE+aQK3eb9fik/T/XFc/V2btq0ApOwZO/2L/sZFsdY=

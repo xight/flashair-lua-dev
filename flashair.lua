@@ -147,7 +147,7 @@ FlashAir.new = function()
 	-- md5 = fa.md5(str)
 	-- obsolete (< 3.0.0)
 	obj.md5 = function(str)
-		return require("crypto").digest("md5", str)
+		return obj.hash("md5", str)
 	end
 
 	-- hash = fa.hash(name, data, key)
@@ -187,6 +187,7 @@ FlashAir.new = function()
 		end
 		return ret
 	end
+
 
 	-- count = fa.Scan([ssid])
 	obj.Scan = function(...)
