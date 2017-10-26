@@ -1,28 +1,20 @@
 language: erlang
 env:
-  - LUA=""
-#  - LUA="luajit"
+    - LUA=""
 branches:
-  only:
-    - master
-    - develop
-install:
-  #  - sudo apt-get install apt-file
-  - sudo apt-get install luarocks
-  - sudo apt-get install libyaml-dev
-  - sudo luarocks-admin refresh-cache
-  - sudo luarocks install luafilesystem
-  - sudo luarocks install busted
-  - sudo luarocks install luasocket
-  - sudo luarocks install luaossl
-  - sudo luarocks install lyaml YAML_LIBDIR=/usr/lib/x86_64-linux-gnu
-script: "busted spec"
-
-#notifications:
-#  webhooks:
-#    - http://my-url/travis-results
-#  recipients:
-#    - engineering@company.com
-#  email:
-#    on_success: change
-#    on_failure: always
+    only:
+        - master
+        - develop
+    install:
+        - sudo apt-get install luarocks
+        - sudo apt-get install libyaml-dev
+        - sudo rm -rf ~/.cache/luarocks
+        - sudo luarocks install luafilesystem
+        - sudo luarocks install busted
+        - sudo luarocks install luasocket
+        - sudo luarocks install luaossl
+        - sudo luarocks install lyaml YAML_LIBDIR=/usr/lib/x86_64-linux-gnu
+script: busted spec
+notifications:
+  slack:
+    secure: T4b0kjRp3Qa0DuXUsMGxxN1g3rNFhzwFdPZb0r8nhSPaIg/2s26vrD5mD8TzEdNW6lBCwy48ruvMEfB1cv7Wcz7LC8O6UGiLF3wEUALd1G+oBDBKWNRSIbnLnANTJDgXsZE+aQK3eb9fik/T/XFc/V2btq0ApOwZO/2L/sZFsdY=
