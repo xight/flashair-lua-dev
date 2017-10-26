@@ -74,6 +74,11 @@ describe("flashair", function()
 		assert.are.equals(1,1)
 	end)
 
+	-- not implement
+	it("check FTP", function()
+	end)
+
+	-- obsolete (< 3.0.0)
 	it("check md5", function()
 		local md5_a = fa.md5("a")
 		local md5_KNOWN_a = "0cc175b9c0f1b6a831c399e269772661"
@@ -102,6 +107,32 @@ describe("flashair", function()
 		local md5_a = fa.hash("hmac-sha256","flashair","secret")
 		local md5_KNOWN_a = "0d201feddd40baa509230859e1b85ed173170d099c2e6c3babad2b6efc6aa400"
 		assert.are.equals(md5_a, md5_KNOWN_a)
+	end)
+
+	-- not implement
+	it("check Scan", function()
+	end)
+
+	it("check GetScanInfo", function()
+		local ssid = config.ssid
+		local ret_ssid, ret_other = fa.GetScanInfo(0)
+		assert.are.equals(ssid,ret_ssid)
+	end)
+
+	-- not implement
+	it("check Connect", function()
+	end)
+
+	-- not implement
+	it("check Establish", function()
+	end)
+
+	-- not implement
+	it("check Bridge", function()
+	end)
+
+	-- not implement
+	it("check Disconnect", function()
 	end)
 
 	it("check sleep", function()
@@ -151,6 +182,26 @@ describe("flashair", function()
 	end)
 	]]
 
+	-- not implement
+	it("check SetCert", function()
+	end)
+
+	-- not implement
+	it("check strconvert", function()
+	end)
+
+	-- not implement
+	it("check SetChannel", function()
+	end)
+
+	-- not implement
+	it("check MailSend", function()
+	end)
+
+	-- not implement
+	it("check spi", function()
+	end)
+
 	it("check ReadStatusReg return value length", function()
 		local status_reg = fa.ReadStatusReg()
 		assert.are.equals(string.len(status_reg), 240)
@@ -193,9 +244,14 @@ describe("flashair", function()
 		assert.are.equals(gw,   test_gw)
 	end)
 
-	it("check GetScanInfo", function()
-		local ssid = config.ssid
-		local ret_ssid, ret_other = fa.GetScanInfo(0)
-		assert.are.equals(ssid,ret_ssid)
+	-- not implement
+	it("check WlanLink", function()
+		local connected   = 1
+		assert.are.equals(fa.WlanLink(), connected)
 	end)
+
+	-- not implement
+	it("check i2c", function()
+	end)
+
 end)
