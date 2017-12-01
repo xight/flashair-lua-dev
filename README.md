@@ -53,11 +53,11 @@ print(b)
 
 # Reference
 
-* [FlashAir Developers - Lua Reference](https://www.flashair-developers.com/ja/documents/api/lua/reference/)
+* [FlashAir Developers - APIガイド - Lua機能](https://www.flashair-developers.com/ja/documents/api/lua/)
 * [SlideShare - xightorg - 2015-03-21 FlashAir 進捗報告会](http://www.slideshare.net/xightorg/2015-0321-flashair)
 
 # License
 
-Copyright (c) 2017 Yoshiki Sato  
-Released under the MIT license  
+Copyright (c) 2017 Yoshiki Sato 
+Released under the MIT license
 https://github.com/xight/flashair-lua-dev/blob/master/LICENSE
